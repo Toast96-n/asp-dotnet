@@ -1,0 +1,42 @@
+@model List<string[]>
+
+<h1>Employees</h1>
+
+<a asp-action="Create">Add Employee</a>
+
+<br />
+<br />
+
+<table border="1" cellpadding="10">
+
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var employee in Model)
+    {
+        <tr>
+            <td>@employee[0]</td>
+            <td>@employee[1]</td>
+            <td>@employee[3]</td>
+
+            <td>
+                <a asp-action="Profile"
+                   asp-route-id="@employee[0]">
+                    Profile
+                </a>
+
+                |
+
+                <a asp-action="Edit"
+                   asp-route-id="@employee[0]">
+                    Edit
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>

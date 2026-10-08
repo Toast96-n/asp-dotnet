@@ -1,0 +1,43 @@
+@model List<string[]>
+
+<h1>Leave Requests</h1>
+
+<a asp-action="Apply">Apply Leave</a>
+
+<br />
+<br />
+
+<table border="1" cellpadding="10">
+
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Department</th>
+        <th>Contact Info</th>
+        <th>Reason</th>
+        
+    </tr>
+
+    @foreach (var leave in Model)
+    {
+        <tr>
+            <td>@leave[0]</td>
+            <td>@leave[1]</td>
+            <td>@leave[2]</td>
+            <td>@leave[3]</td>
+            <td>@leave[4]</td>
+            
+
+            
+
+            <td>
+                <a asp-action="Details"
+                   asp-route-id="@leave[0]">
+                    Details
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
