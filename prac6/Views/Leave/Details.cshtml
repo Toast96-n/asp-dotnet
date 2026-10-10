@@ -1,8 +1,15 @@
+@model prac6.Models.LeaveRequest
+
 <h1>Leave Details</h1>
 
-<p>Name: @TempData["Name"]</p>
-<p>From: @TempData["From"]</p>
-<p>To: @TempData["To"]</p>
-<p>Reason: @TempData["Reason"]</p>
+<p>Request ID: @Model.Id</p>
+<p>Name: @Model.Name</p>
+<p>Address: @Model.Address</p>
+<p>Department: @Model.Department</p>
+<p>Contact Info: @Model.ContactInfo</p>
+<p>From: @Model.From</p>
+<p>To: @Model.To</p>
+<p>Reason: @Model.Reason</p>
+<p>Status: @Model.Status</p>
 
 <a asp-action="Index">Back</a>

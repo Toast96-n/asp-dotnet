@@ -1,0 +1,20 @@
+@model prac6.Models.DepartmentInfo
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<h1>@Model.Name</h1>
+<p>@Model.Description</p>
+
+<h2 class="h4 mt-4">Department contact</h2>
+<dl class="row">
+    <dt class="col-sm-3">Manager</dt>
+    <dd class="col-sm-9">@Model.Manager</dd>
+    <dt class="col-sm-3">Email</dt>
+    <dd class="col-sm-9"><a href="mailto:@Model.Email">@Model.Email</a></dd>
+    <dt class="col-sm-3">Phone extension</dt>
+    <dd class="col-sm-9">@Model.Extension</dd>
+</dl>
+<p class="text-muted">Sample contact information; replace it with your organization's directory details.</p>
+
+<a asp-action="Departments">Back to departments</a>

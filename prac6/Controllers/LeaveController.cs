@@ -1,14 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
+using prac6.Models;
 
-namespace LeaveApplication.Controllers
+namespace prac6.Controllers
 {
     public class LeaveController : Controller
     {
-        static List<string[]> leaves = new List<string[]>();
-
         public IActionResult Index()
         {
-            return View(leaves);
+            return View(LeaveRequestStore.All.ToList());
         }
 
         public IActionResult Apply()
@@ -26,38 +25,26 @@ namespace LeaveApplication.Controllers
             string to,
             string reason)
         {
-            string id = (leaves.Count + 1).ToString();
-
-            leaves.Add(new string[]
+            var leave = LeaveRequestStore.Add(new LeaveRequest
             {
-                id,
-                name,
-                address,
-                department,
-                contactInfo,
-                from,
-                to,
-                reason
+                Name = name,
+                Address = address,
+                Department = department,
+                ContactInfo = contactInfo,
+                From = from,
+                To = to,
+                Reason = reason
             });
 
-            TempData["Id"] = id;
+            TempData["Id"] = leave.Id;
 
             return RedirectToAction("Confirmation");
         }
 
         public IActionResult Details(int id)
         {
-            var leave = leaves.FirstOrDefault(x => x[0] == id.ToString());
-
-            TempData["Name"] = leave[1];
-            TempData["Address"] = leave[2];
-            TempData["Department"] = leave[3];
-            TempData["ContactInfo"] = leave[4];
-            TempData["From"] = leave[5];
-            TempData["To"] = leave[6];
-            TempData["Reason"] = leave[7];
-
-            return View();
+            var leave = LeaveRequestStore.Find(id);
+            return leave is null ? NotFound() : View(leave);
         }
 
         public IActionResult Confirmation()

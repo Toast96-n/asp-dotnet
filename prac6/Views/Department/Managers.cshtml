@@ -1,0 +1,29 @@
+@model List<prac6.Models.DepartmentInfo>
+@{
+    ViewData["Title"] = "Reporting Managers";
+}
+
+<h1>Reporting Managers</h1>
+<p class="text-muted">Sample manager directory. Confirm reporting lines with your HR team.</p>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Manager</th>
+                <th>Department</th>
+                <th>Contact</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var department in Model)
+            {
+                <tr>
+                    <td>@department.Manager</td>
+                    <td>@department.Name</td>
+                    <td><a href="mailto:@department.Email">@department.Email</a> (ext. @department.Extension)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,48 @@
+@model List<prac6.Models.LeaveRequest>
+@{
+    ViewData["Title"] = "Leave Status";
+}
+
+<h1>Current Leave Status</h1>
+<p>Track each submitted leave request and its latest approval decision.</p>
+
+<nav class="mb-3">
+    <a asp-action="Pending">Pending</a> |
+    <a asp-action="Approved">Approved</a> |
+    <a asp-action="Rejected">Rejected</a>
+</nav>
+
+@if (Model.Count == 0)
+{
+    <p>No leave requests have been submitted yet.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle">
+            <thead>
+                <tr>
+                    <th>Request ID</th>
+                    <th>Employee</th>
+                    <th>Department</th>
+                    <th>Leave dates</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var request in Model)
+                {
+                    <tr>
+                        <td>@request.Id</td>
+                        <td>@request.Name</td>
+                        <td>@request.Department</td>
+                        <td>@request.From – @request.To</td>
+                        <td>@request.Reason</td>
+                        <td>@request.Status</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
