@@ -1,0 +1,39 @@
+@model prac6.Models.AttendanceEntryViewModel
+@{
+    ViewData["Title"] = "Mark Attendance";
+}
+
+<h1>Mark Daily Attendance</h1>
+<p>Record an employee's check-in. Submit the same employee and date later with a check-out time to complete the record.</p>
+
+<form asp-action="Mark" method="post" class="row g-3">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="col-md-6">
+        <label asp-for="EmployeeName" class="form-label">Employee name</label>
+        <input asp-for="EmployeeName" class="form-control" />
+        <span asp-validation-for="EmployeeName" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Date" class="form-label">Date</label>
+        <input asp-for="Date" type="date" class="form-control" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="CheckIn" class="form-label">Check-in</label>
+        <input asp-for="CheckIn" type="time" class="form-control" />
+        <span asp-validation-for="CheckIn" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="CheckOut" class="form-label">Check-out (optional)</label>
+        <input asp-for="CheckOut" type="time" class="form-control" />
+        <span asp-validation-for="CheckOut" class="text-danger"></span>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Save attendance</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,13 @@
+@model prac6.Models.NotificationItem
+@{
+    ViewData["Title"] = "Notification Details";
+}
+
+<h1>@Model.Title</h1>
+<p class="text-muted">@Model.Category · @Model.PublishedAt.ToString("D")</p>
+<div class="card mb-3">
+    <div class="card-body">
+        <p class="card-text">@Model.Message</p>
+    </div>
+</div>
+<a asp-action="Index">Back to notifications</a>

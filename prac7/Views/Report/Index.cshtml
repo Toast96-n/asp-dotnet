@@ -1,0 +1,20 @@
+@model prac6.Models.ReportDashboardViewModel
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<h1>Reports</h1>
+<p>Quick access to leave, attendance, and employee summaries.</p>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3"><div class="card h-100"><div class="card-body"><h2 class="h6">Leave requests</h2><p class="h3">@Model.TotalLeaveRequests</p><a asp-action="LeaveReport">Open leave report</a></div></div></div>
+    <div class="col-md-3"><div class="card h-100"><div class="card-body"><h2 class="h6">Pending leave</h2><p class="h3">@Model.PendingLeaveRequests</p><a asp-controller="Approval" asp-action="Pending">Review pending</a></div></div></div>
+    <div class="col-md-3"><div class="card h-100"><div class="card-body"><h2 class="h6">Attendance entries</h2><p class="h3">@Model.AttendanceRecords</p><a asp-action="AttendanceReport">Open attendance report</a></div></div></div>
+    <div class="col-md-3"><div class="card h-100"><div class="card-body"><h2 class="h6">Employees represented</h2><p class="h3">@Model.EmployeesWithRecords</p><a asp-action="EmployeeSummary">Open employee summary</a></div></div></div>
+</div>
+
+<nav class="list-group">
+    <a class="list-group-item list-group-item-action" asp-action="LeaveReport">Employee leave report</a>
+    <a class="list-group-item list-group-item-action" asp-action="AttendanceReport">Attendance report</a>
+    <a class="list-group-item list-group-item-action" asp-action="EmployeeSummary">Overall employee summary</a>
+</nav>

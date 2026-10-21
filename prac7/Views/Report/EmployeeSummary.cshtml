@@ -1,0 +1,33 @@
+@model IReadOnlyList<prac6.Models.EmployeeSummaryItem>
+@{
+    ViewData["Title"] = "Employee Summary";
+}
+
+<h1>Overall Employee Summary</h1>
+<p>Employee totals are based on the leave and attendance records currently in the application.</p>
+<p><a asp-action="Index">Back to reports</a></p>
+
+@if (Model.Count == 0)
+{
+    <p>No employee leave or attendance records are available yet.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle">
+            <thead><tr><th>Employee</th><th>Department</th><th>Leave requests</th><th>Attendance days</th><th>Hours worked</th></tr></thead>
+            <tbody>
+                @foreach (var employee in Model)
+                {
+                    <tr>
+                        <td>@employee.EmployeeName</td>
+                        <td>@employee.Department</td>
+                        <td>@employee.LeaveRequestCount</td>
+                        <td>@employee.AttendanceDays</td>
+                        <td>@employee.HoursWorked.ToString("0.##")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

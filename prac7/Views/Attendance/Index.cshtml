@@ -1,0 +1,39 @@
+@model IReadOnlyList<prac6.Models.AttendanceRecord>
+@{
+    ViewData["Title"] = "Attendance";
+}
+
+<h1>Attendance Records</h1>
+<p>Review employee check-in, check-out, and working hours.</p>
+<nav class="mb-3">
+    <a asp-action="Mark">Mark attendance</a> |
+    <a asp-action="History">Attendance history</a> |
+    <a asp-action="Summary">Monthly summary</a>
+</nav>
+
+@if (Model.Count == 0)
+{
+    <p>No attendance records have been marked yet.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle">
+            <thead>
+                <tr><th>Employee</th><th>Date</th><th>Check-in</th><th>Check-out</th><th>Hours</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var record in Model)
+                {
+                    <tr>
+                        <td>@record.EmployeeName</td>
+                        <td>@record.Date.ToString("d")</td>
+                        <td>@record.CheckIn.ToString("t")</td>
+                        <td>@(record.CheckOut?.ToString("t") ?? "Not recorded")</td>
+                        <td>@record.HoursWorked.ToString("0.##")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

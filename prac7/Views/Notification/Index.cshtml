@@ -1,0 +1,37 @@
+@model IReadOnlyList<prac6.Models.NotificationItem>
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+<h1>Notifications</h1>
+<p>Employee notifications, company announcements, and reminders.</p>
+<nav class="mb-3">
+    <a asp-action="Announcement">Announcements</a> |
+    <a asp-action="Reminder">Reminders</a>
+</nav>
+
+@if (Model.Count == 0)
+{
+    <p>No notifications are available.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle">
+            <thead>
+                <tr><th>Title</th><th>Type</th><th>Date</th><th></th></tr>
+            </thead>
+            <tbody>
+                @foreach (var notification in Model)
+                {
+                    <tr>
+                        <td>@notification.Title</td>
+                        <td>@notification.Category</td>
+                        <td>@notification.PublishedAt.ToString("d")</td>
+                        <td><a asp-action="Message" asp-route-id="@notification.Id">View message</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

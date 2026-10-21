@@ -1,0 +1,55 @@
+@model prac6.Models.AttendanceMonthlySummaryViewModel
+@{
+    ViewData["Title"] = "Monthly Attendance Summary";
+}
+
+<h1>Monthly Attendance Summary</h1>
+<form asp-action="Summary" method="get" class="row g-3 mb-4">
+    <div class="col-auto">
+        <label for="month" class="form-label">Month</label>
+        <select id="month" name="month" class="form-select">
+            @for (var month = 1; month <= 12; month++)
+            {
+                <option value="@month" selected="@(Model.Month == month ? "selected" : null)">@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)</option>
+            }
+        </select>
+    </div>
+    <div class="col-auto">
+        <label for="year" class="form-label">Year</label>
+        <input id="year" name="year" type="number" min="1" max="9999" value="@Model.Year" class="form-control" />
+    </div>
+    <div class="col-auto align-self-end">
+        <button type="submit" class="btn btn-primary">View summary</button>
+    </div>
+</form>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4"><div class="card"><div class="card-body"><h2 class="h6">Attendance records</h2><p class="h3 mb-0">@Model.AttendanceCount</p></div></div></div>
+    <div class="col-md-4"><div class="card"><div class="card-body"><h2 class="h6">Employees recorded</h2><p class="h3 mb-0">@Model.EmployeeCount</p></div></div></div>
+    <div class="col-md-4"><div class="card"><div class="card-body"><h2 class="h6">Hours worked</h2><p class="h3 mb-0">@Model.TotalHours.ToString("0.##")</p></div></div></div>
+</div>
+
+@if (Model.Records.Count == 0)
+{
+    <p>No attendance records were found for this month.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead><tr><th>Date</th><th>Employee</th><th>Check-in</th><th>Check-out</th><th>Hours</th></tr></thead>
+            <tbody>
+                @foreach (var record in Model.Records)
+                {
+                    <tr>
+                        <td>@record.Date.ToString("d")</td>
+                        <td>@record.EmployeeName</td>
+                        <td>@record.CheckIn.ToString("t")</td>
+                        <td>@(record.CheckOut?.ToString("t") ?? "Not recorded")</td>
+                        <td>@record.HoursWorked.ToString("0.##")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
