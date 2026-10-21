@@ -1,0 +1,18 @@
+@model prac6.Models.EmployeeRecord
+
+<h1>Employee Profile</h1>
+
+<dl class="row mt-3">
+    <dt class="col-sm-3">ID</dt>
+    <dd class="col-sm-9">@Model.Id</dd>
+    <dt class="col-sm-3">Name</dt>
+    <dd class="col-sm-9">@Model.Name</dd>
+    <dt class="col-sm-3">Address</dt>
+    <dd class="col-sm-9">@Model.Address</dd>
+    <dt class="col-sm-3">Department</dt>
+    <dd class="col-sm-9">@Model.Department</dd>
+    <dt class="col-sm-3">Contact</dt>
+    <dd class="col-sm-9">@Model.Contact</dd>
+</dl>
+
+<a asp-action="Employees" class="btn btn-secondary">Back to Employees</a>
