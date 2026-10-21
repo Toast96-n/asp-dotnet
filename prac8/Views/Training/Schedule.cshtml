@@ -1,0 +1,23 @@
+@model IReadOnlyList<prac6.Models.TrainingProgram>
+@{
+    ViewData["Title"] = "Training Schedule";
+}
+
+<h1>Training Schedule</h1>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead><tr><th>Program</th><th>Start</th><th>End</th><th>Location</th><th>Enrollment</th></tr></thead>
+        <tbody>
+            @foreach (var program in Model)
+            {
+                <tr>
+                    <td>@program.Title</td>
+                    <td>@program.StartDate.ToString("MMM d, yyyy")</td>
+                    <td>@program.EndDate.ToString("MMM d, yyyy")</td>
+                    <td>@program.Location</td>
+                    <td>@program.Registered / @program.Capacity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

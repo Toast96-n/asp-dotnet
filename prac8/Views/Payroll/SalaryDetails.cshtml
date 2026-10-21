@@ -1,0 +1,18 @@
+@model decimal
+@{
+    ViewData["Title"] = "Salary Details";
+    var monthlyBase = Model / 12;
+}
+
+<h1>Salary Details</h1>
+<p class="text-muted">Sample salary breakdown. Amounts are illustrative.</p>
+<div class="card" style="max-width: 36rem;">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-7">Annual base salary</dt><dd class="col-sm-5">@Model.ToString("C")</dd>
+            <dt class="col-sm-7">Monthly base salary</dt><dd class="col-sm-5">@monthlyBase.ToString("C")</dd>
+            <dt class="col-sm-7">Typical monthly allowance</dt><dd class="col-sm-5">@prac6.Models.PayrollStore.Payslips[0].Allowances.ToString("C")</dd>
+            <dt class="col-sm-7">Typical monthly gross pay</dt><dd class="col-sm-5">@((monthlyBase + prac6.Models.PayrollStore.Payslips[0].Allowances).ToString("C"))</dd>
+        </dl>
+    </div>
+</div>

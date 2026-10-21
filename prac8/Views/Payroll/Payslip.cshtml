@@ -1,0 +1,24 @@
+@model IReadOnlyList<prac6.Models.PayslipRecord>
+@{
+    ViewData["Title"] = "Payslips";
+}
+
+<h1>Monthly Payslips</h1>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead><tr><th>Pay period</th><th>Basic salary</th><th>Allowances</th><th>Gross pay</th><th>Deductions</th><th>Net pay</th></tr></thead>
+        <tbody>
+            @foreach (var payslip in Model)
+            {
+                <tr>
+                    <td>@payslip.Month</td>
+                    <td>@payslip.BasicSalary.ToString("C")</td>
+                    <td>@payslip.Allowances.ToString("C")</td>
+                    <td>@payslip.GrossPay.ToString("C")</td>
+                    <td>@payslip.TotalDeductions.ToString("C")</td>
+                    <td>@payslip.NetPay.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

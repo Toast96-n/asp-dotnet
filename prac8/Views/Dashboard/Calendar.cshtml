@@ -1,0 +1,40 @@
+@model prac6.Models.LeaveCalendarViewModel
+@{
+    ViewData["Title"] = "Leave & Holiday Calendar";
+}
+
+<h1>Leave &amp; Holiday Calendar</h1>
+<div class="row g-4">
+    <section class="col-lg-7">
+        <h2 class="h4">My leave requests</h2>
+        @if (Model.LeaveRequests.Count == 0)
+        {
+            <p class="text-muted">No leave requests are on the calendar.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead><tr><th>From</th><th>To</th><th>Reason</th><th>Status</th></tr></thead>
+                    <tbody>
+                        @foreach (var request in Model.LeaveRequests)
+                        {
+                            <tr><td>@request.From</td><td>@request.To</td><td>@request.Reason</td><td>@request.Status</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </section>
+    <section class="col-lg-5">
+        <h2 class="h4">Company holidays</h2>
+        <ul class="list-group">
+            @foreach (var holiday in Model.Holidays)
+            {
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>@holiday.Name</span><span>@holiday.Date.ToString("MMM d, yyyy")</span>
+                </li>
+            }
+        </ul>
+    </section>
+</div>

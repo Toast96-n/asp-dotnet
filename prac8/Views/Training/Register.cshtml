@@ -1,0 +1,25 @@
+@model prac6.Models.TrainingProgram
+@{
+    ViewData["Title"] = "Register for Training";
+}
+
+<h1>Register for Training</h1>
+<div class="card" style="max-width: 42rem;">
+    <div class="card-body">
+        <h2 class="h4">@Model.Title</h2>
+        <p>@Model.Description</p>
+        <p><strong>Schedule:</strong> @Model.StartDate.ToString("MMM d, yyyy")–@Model.EndDate.ToString("MMM d, yyyy")</p>
+        <p><strong>Location:</strong> @Model.Location</p>
+        <p><strong>Available seats:</strong> @(Model.Capacity - Model.Registered)</p>
+        <form asp-action="Register" method="post">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <div class="mb-3">
+                <label for="employeeName" class="form-label">Employee name</label>
+                <input id="employeeName" name="employeeName" class="form-control" value="@prac6.Models.EmployeeProfileStore.Current.Name" required />
+                <span class="text-danger">@Html.ValidationMessage("employeeName")</span>
+            </div>
+            <button type="submit" class="btn btn-primary" disabled="@(Model.Registered >= Model.Capacity)">Confirm registration</button>
+            <a asp-action="Training" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

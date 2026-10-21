@@ -1,0 +1,80 @@
+@model prac6.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1>Employee Dashboard</h1>
+<p class="text-muted">Welcome, @Model.Profile.Name. Here is your employee activity overview.</p>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card h-100"><div class="card-body">
+            <h2 class="h6">Department</h2>
+            <p class="h5">@Model.Profile.Department</p>
+            <a asp-controller="Department" asp-action="Departments">Department directory</a>
+        </div></div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100"><div class="card-body">
+            <h2 class="h6">Pending leave requests</h2>
+            <p class="h3">@Model.PendingLeaveCount</p>
+            <a asp-action="MyLeave">View my leave</a>
+        </div></div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100"><div class="card-body">
+            <h2 class="h6">HR support</h2>
+            <p>Questions about leave, pay, or benefits?</p>
+            <a asp-controller="HR" asp-action="HRContacts">Contact Human Resources</a>
+        </div></div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-7">
+        <h2 class="h4">Recent leave activity</h2>
+        @if (Model.LeaveRequests.Count == 0)
+        {
+            <p class="text-muted">No leave requests are available.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead><tr><th>Dates</th><th>Reason</th><th>Status</th></tr></thead>
+                    <tbody>
+                        @foreach (var request in Model.LeaveRequests.Take(5))
+                        {
+                            <tr><td>@request.From to @request.To</td><td>@request.Reason</td><td>@request.Status</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+    <div class="col-lg-5">
+        <h2 class="h4">Upcoming holidays</h2>
+        @if (Model.UpcomingHolidays.Count == 0)
+        {
+            <p class="text-muted">No upcoming holidays are listed.</p>
+        }
+        else
+        {
+            <ul class="list-group">
+                @foreach (var holiday in Model.UpcomingHolidays)
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>@holiday.Name</span><span>@holiday.Date.ToString("MMM d, yyyy")</span>
+                    </li>
+                }
+            </ul>
+        }
+        <a class="d-inline-block mt-2" asp-action="Calendar">Open leave &amp; holiday calendar</a>
+    </div>
+</div>
+
+<nav class="mt-4 d-flex flex-wrap gap-3">
+    <a asp-action="MyProfile">My profile</a>
+    <a asp-controller="Payroll" asp-action="Index">Payroll</a>
+    <a asp-controller="Training" asp-action="Training">Training programs</a>
+</nav>

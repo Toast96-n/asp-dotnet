@@ -1,0 +1,26 @@
+@model prac6.Models.PayrollDashboardViewModel
+@{
+    ViewData["Title"] = "Payroll";
+}
+
+<h1>Payroll Dashboard</h1>
+<p class="text-muted">Sample payroll figures for @prac6.Models.EmployeeProfileStore.Current.Name.</p>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-6"><div class="card h-100"><div class="card-body"><h2 class="h6">Annual base salary</h2><p class="h3">@Model.AnnualSalary.ToString("C")</p><a asp-action="SalaryDetails">View salary breakdown</a></div></div></div>
+    <div class="col-md-6"><div class="card h-100"><div class="card-body"><h2 class="h6">Latest net pay (@Model.LatestPayslip.Month)</h2><p class="h3">@Model.LatestPayslip.NetPay.ToString("C")</p><a asp-action="Payslip">View payslips</a></div></div></div>
+</div>
+
+<h2 class="h4">Recent payslips</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead><tr><th>Pay period</th><th>Gross pay</th><th>Deductions</th><th>Net pay</th></tr></thead>
+        <tbody>
+            @foreach (var payslip in Model.Payslips)
+            {
+                <tr><td>@payslip.Month</td><td>@payslip.GrossPay.ToString("C")</td><td>@payslip.TotalDeductions.ToString("C")</td><td>@payslip.NetPay.ToString("C")</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+<a asp-action="Deductions">View leave and deduction details</a>

@@ -1,0 +1,32 @@
+@model prac6.Models.MyLeaveViewModel
+@{
+    ViewData["Title"] = "My Leave";
+}
+
+<h1>My Leave</h1>
+<div class="row g-3 mb-4">
+    <div class="col-md-4"><div class="card"><div class="card-body"><h2 class="h6">Annual allowance</h2><p class="h3 mb-0">@Model.AnnualAllowance days</p></div></div></div>
+    <div class="col-md-4"><div class="card"><div class="card-body"><h2 class="h6">Approved leave used</h2><p class="h3 mb-0">@Model.ApprovedDays days</p></div></div></div>
+    <div class="col-md-4"><div class="card"><div class="card-body"><h2 class="h6">Remaining balance</h2><p class="h3 mb-0">@Model.RemainingDays days</p></div></div></div>
+</div>
+
+<h2 class="h4">Request history</h2>
+@if (Model.Requests.Count == 0)
+{
+    <p class="text-muted">You have no leave requests yet.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead><tr><th>From</th><th>To</th><th>Reason</th><th>Status</th></tr></thead>
+            <tbody>
+                @foreach (var request in Model.Requests)
+                {
+                    <tr><td>@request.From</td><td>@request.To</td><td>@request.Reason</td><td>@request.Status</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+<a asp-controller="Leave" asp-action="Apply" class="btn btn-primary">Apply for leave</a>

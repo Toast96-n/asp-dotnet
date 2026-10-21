@@ -1,0 +1,39 @@
+@model IReadOnlyList<prac6.Models.TrainingProgram>
+@{
+    ViewData["Title"] = "Training Programs";
+}
+
+<h1>Training Programs</h1>
+@if (TempData["TrainingMessage"] is string message)
+{
+    <div class="alert alert-success" role="status">@message</div>
+}
+@if (TempData["TrainingError"] is string error)
+{
+    <div class="alert alert-warning" role="alert">@error</div>
+}
+<p>Explore upcoming programs and register for a session.</p>
+<div class="row g-3">
+    @foreach (var program in Model)
+    {
+        <div class="col-md-6 col-xl-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="h5 card-title">@program.Title</h2>
+                    <p>@program.Description</p>
+                    <p class="mb-1"><strong>Dates:</strong> @program.StartDate.ToString("MMM d")–@program.EndDate.ToString("MMM d, yyyy")</p>
+                    <p class="mb-1"><strong>Location:</strong> @program.Location</p>
+                    <p><strong>Seats:</strong> @program.Registered / @program.Capacity</p>
+                    @if (program.Registered < program.Capacity)
+                    {
+                        <a class="btn btn-primary" asp-action="Register" asp-route-id="@program.Id">Register</a>
+                    }
+                    else
+                    {
+                        <span class="badge text-bg-secondary">Full</span>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
